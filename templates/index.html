@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التنبؤ بأمراض الثدي</title>
+    <link rel="shortcut icon" href="../static/logo.jpg" type="image/x-icon">
+    <style>
+        /* (CSS) للتصميم والتجاوبية */
+        :root {
+            --primary-color: #a30030; /* لون أحمر داكن للشعار والأزرار */
+            --secondary-color: #f4f4f9; /* لون الخلفية الفاتح */
+            --text-color: #333;
+            --font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* تنسيق العنوان والشعار (Logo) */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .logo-icon {
+            font-size: 30px;
+            color: white;
+            /* يمكن استبدال هذا برمز (SVG) أو (Image) */
+        }
+
+        /* تنسيق الحاوية الرئيسية */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 26px;
+        }
+
+        /* تنسيق النموذج (Form) */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .form-group p {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #6d6c6c;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* لضمان عدم تجاوز العرض المحدد */
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* تنسيق زر الإرسال */
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #830025; /* لون أغمق عند المرور */
+        }
+
+        /* تنسيق منطقة النتيجة */
+        .result-area {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+
+        .result-area p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #008000; /* لون أخضر للنتيجة (مثال) */
+        }
+
+        /* التجاوبية (Responsive) - تعديل طفيف للأجهزة الصغيرة جدًا */
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 15px;
+            }
+            .header h2 {
+                font-size: 20px;
+            }
+            .logo {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="../static/logo.jpg" alt="logo-icon" style="width: 60px; border-radius: 50%; margin: 20px;">
+        <!-- <span class="logo-icon">🔬</span> -->
+        <h2 class="logo">نظام التنبؤ الذكي</h2>
+    </div>
+
+    <div class="container">
+        <h1>إدخال البيانات للتحليل</h1>
+
+        <form id="prediction-form" action="/analysis" method="post">
+            <div class="form-grid">
+                
+                <div class="form-group">
+                    <label for="Clump_Thickness">سماكة التكتل (1-10)</label>
+                    <p>درجة تكتل الخلايا. القيم العالية قد تشير إلى تكتلات غير طبيعية.</p>
+                    <input type="number" id="Clump_Thickness" name="Clump_Thickness" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Uniformity_of_Cell_Size">انتظام حجم الخلية (1-10)</label>
+                    <p>مدى تباين حجم الخلايا. الخلايا ذات الحجم غير المنتظم قد تكون مؤشر خطر.</p>
+                    <input type="number" id="Uniformity_of_Cell_Size" name="Uniformity_of_Cell_Size" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Uniformity_of_Cell_Shape">انتظام شكل الخلية (1-10)</label>
+                    <p>مدى تباين شكل الخلايا. الخلايا الطبيعية تكون موحدة الشكل.</p>
+                    <input type="number" id="Uniformity_of_Cell_Shape" name="Uniformity_of_Cell_Shape" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Marginal_Adhesion">التصاق الحافة (1-10)</label>
+                    <p>ميل الخلايا للالتصاق ببعضها. القيم المرتفعة قد تعني ضعف الالتصاق.</p>
+                    <input type="number" id="Marginal_Adhesion" name="Marginal_Adhesion" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Single_Epithelial_Cell_Size">حجم الخلية الظهارية الواحدة (1-10)</label>
+                    <p>مدى تباين حجم الخلايا الظهارية. القيم العالية قد تشير إلى نمو غير طبيعي.</p>
+                    <input type="number" id="Single_Epithelial_Cell_Size" name="Single_Epithelial_Cell_Size" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Bare_Nuclei">الأنوية العارية (1-10)</label>
+                    <p>عدد الانوية التي يحيط بها سيتوبلازم. قد تكون مؤشر على الورم.</p>
+                    <input type="number" id="Bare_Nuclei" name="Bare_Nuclei" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Bland_Chromatin">الكروماتين الأبله (1-10)</label>
+                    <p>مدى انتظام الكروماتين في نواة الخلية. الكروماتين غير المنتظم علامة على الورم.</p>
+                    <input type="number" id="Bland_Chromatin" name="Bland_Chromatin" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Normal_Nucleoli">النُويّات الطبيعية (1-10)</label>
+                    <p>حجم النويات داخل نواة الخلية. الكبيرة والمتباينة قد تشير الى الورم.</p>
+                    <input type="number" id="Normal_Nucleoli" name="Normal_Nucleoli" min="1" max="10" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Mitoses">الانقسامات الخلوية (1-10)</label>
+                    <p>عدد الخلايا المنقسمة. معدل الانقسام العالي قد يكون مؤشر على نمو غير طبيعي.</p>
+                    <input type="number" id="Mitoses" name="Mitoses" min="1" max="10" required >
+                </div>
+
+            </div>
+            
+            <button type="submit" class="submit-button">إجراء التنبؤ</button>
+        </form>
+
+        <div class="result-area">
+            {% if prediction_text %}
+                <p style="color: {{'#a30030' if 'خبيثة' in prediction_text else '#008000'}}; backgroundColor: {{'lightred' if 'خبيثة' in prediction_text else 'lightgreen'}}">{{ prediction_text }}</p>
+            {% else %}
+                <p>قم بإدخال البيانات واضغط على زر "إجراء التنبؤ".</p>
+            {% endif %}
+    </div>
+
+    </div>
+
+</body>
+</html>

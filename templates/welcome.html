@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial_scale=1.0">
+    <title>مرحباً بك | نظام التنبؤ</title>
+    <style>
+        /* (CSS) خاص بصفحة الترحيب */
+        :root {
+            --primary-color: #a30030;
+            --secondary-color: #f4f4f9;
+            --text-color: #333;
+            --font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .welcome-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .welcome-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo-icon {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 30px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .owner-name {
+            display: block;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .start-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .start-button:hover {
+            background-color: #830025;
+        }
+
+        /* التجاوبية */
+        @media (max-width: 600px) {
+            .welcome-box {
+                padding: 30px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-box">
+        <img src="../static/logo.jpg" alt="logo-icon" style="width: 200px; border-radius: 50%; margin: 20px;">
+
+        <!-- <span class="logo-icon">🔬</span> -->
+        <h1>أهلاً بك في نظام التنبؤ الذكي</h1>
+        <p>
+            هذا النظام متخصص في استخدام نماذج التعلم الآلي للتنبؤ بأمراض الثدي بناءً على بيانات مدخلة.
+            <br>
+            
+            يرجى الضغط على "بدء التحليل" للانتقال إلى نموذج إدخال البيانات.
+        </p>
+
+        <a href="/analysis" class="start-button">بدء التحليل</a>
+
+        <span class="owner-name">مقدمة من: نورا الحرازي
+            <br>
+            <br>
+            Done by <em>PRINCESS</em>
+        </span>
+    </div>
+
+</body>
+</html>
